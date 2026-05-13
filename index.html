@@ -39,15 +39,15 @@
       scroll-behavior:smooth;
     }
 
- body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-b);
-  font-weight: 300;
-  line-height: 1.65;
-  overflow-x: hidden;
-  width:100%;
-}
+    body{
+      background:var(--black);
+      color:var(--white);
+      font-family:var(--font-b);
+      font-weight:300;
+      line-height:1.65;
+      overflow-x:hidden;
+      width:100%;
+    }
 
     a{
       text-decoration:none;
@@ -58,8 +58,6 @@
       max-width:100%;
       display:block;
     }
-
-    /* DEMO */
 
     .demo-banner{
       position:fixed;
@@ -75,8 +73,6 @@
       font-weight:700;
       letter-spacing:1px;
     }
-
-    /* NAVBAR */
 
     nav{
       position:fixed;
@@ -105,6 +101,7 @@
       gap:30px;
       list-style:none;
       align-items:center;
+      flex-wrap:wrap;
     }
 
     .nav-links a{
@@ -113,6 +110,7 @@
       letter-spacing:1px;
       color:var(--light);
       transition:.3s;
+      white-space:nowrap;
     }
 
     .nav-links a:hover{
@@ -133,16 +131,13 @@
       box-shadow:0 15px 40px rgba(242,182,0,0.35);
     }
 
-    /* HERO */
-
     #home{
       position:relative;
       min-height:100vh;
       display:flex;
       align-items:center;
-      padding:120px 5%;
+      padding:160px 5% 220px;
       overflow:hidden;
-      padding-bottom:220px;
     }
 
     .hero-bg{
@@ -160,13 +155,11 @@
       background:linear-gradient(to right, rgba(0,0,0,0.92), rgba(0,0,0,0.55));
     }
 
-  .hero-content{
-  position:relative;
-  z-index:2;
-  padding:0 5%;
-  padding-top:60px;
-  max-width:820px;
-}
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:820px;
+    }
 
     .hero-tag{
       color:var(--gold);
@@ -175,6 +168,8 @@
       font-size:13px;
       margin-bottom:20px;
       font-weight:700;
+      position:relative;
+      z-index:5;
     }
 
     .hero-h1{
@@ -213,12 +208,12 @@
       border-radius:3px;
       box-shadow:0 10px 30px rgba(242,182,0,0.25);
       transition:.3s;
+      display:inline-block;
     }
 
     .btn-primary:hover{
       background:var(--gold2);
       transform:translateY(-3px);
-      box-shadow:0 15px 40px rgba(242,182,0,0.35);
     }
 
     .btn-outline{
@@ -228,14 +223,13 @@
       font-size:14px;
       letter-spacing:1px;
       transition:.3s;
+      display:inline-block;
     }
 
     .btn-outline:hover{
       border-color:var(--gold);
       color:var(--gold);
     }
-
-    /* HERO STATS */
 
     .hero-stats{
       position:absolute;
@@ -268,10 +262,9 @@
       color:var(--grey);
     }
 
-    /* SECTION */
-
     section{
       padding:100px 5%;
+      scroll-margin-top:120px;
     }
 
     .section-tag{
@@ -294,8 +287,6 @@
       max-width:600px;
       color:var(--light);
     }
-
-    /* ABOUT */
 
     #about{
       background:var(--dark);
@@ -356,8 +347,6 @@
       font-size:14px;
     }
 
-    /* SERVICES */
-
     #services{
       background:var(--black);
     }
@@ -404,8 +393,6 @@
       color:var(--grey);
       font-size:15px;
     }
-
-    /* PROJECTS */
 
     .projects-grid{
       display:grid;
@@ -455,8 +442,6 @@
       font-size:28px;
     }
 
-    /* QUOTE */
-
     #quote{
       background:linear-gradient(135deg,var(--dark2),var(--dark));
       position:relative;
@@ -484,22 +469,6 @@
       z-index:2;
     }
 
-    .contact-item{
-      display:flex;
-      gap:15px;
-      margin-bottom:18px;
-      color:var(--light);
-    }
-
-    .contact-icon{
-      width:40px;
-      height:40px;
-      background:rgba(242,182,0,0.1);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
     .form-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -524,22 +493,20 @@
     }
 
     .form-group input,
-    .form-group textarea,
-    .form-group select{
+    .form-group textarea{
       background:rgba(255,255,255,0.05);
       border:1px solid rgba(255,255,255,0.08);
       padding:14px;
       color:white;
       font-family:var(--font-b);
       outline:none;
+      width:100%;
     }
 
     textarea{
       resize:vertical;
       min-height:120px;
     }
-
-    /* CONTACT STRIP */
 
     .contact-strip{
       background:var(--gold);
@@ -567,9 +534,8 @@
       font-size:14px;
       font-weight:700;
       letter-spacing:1px;
+      display:inline-block;
     }
-
-    /* FOOTER */
 
     footer{
       background:var(--dark);
@@ -627,91 +593,109 @@
       color:var(--grey);
       font-size:14px;
     }
-    
-section{
-  scroll-margin-top:120px;
-}
-    
+
     /* MOBILE */
-@media (max-width: 900px){
 
-  body{
-    overflow-x:hidden;
-  }
+    @media (max-width:900px){
 
-  #home{
-    min-height:auto;
-    padding-top:140px;
-    padding-bottom:40px;
-  }
+      nav{
+        flex-direction:column;
+        gap:20px;
+        padding:15px 5%;
+      }
 
-  .hero-content{
-    max-width:100%;
-  }
+      .nav-links{
+        width:100%;
+        justify-content:center;
+        gap:15px;
+      }
 
-  .hero-h1{
-    font-size:3.2rem !important;
-    line-height:0.92;
-  }
+      #home{
+        min-height:auto;
+        padding:180px 5% 40px;
+      }
 
-  .hero-sub{
-    font-size:0.95rem;
-    max-width:100%;
-  }
+      .hero-tag{
+        font-size:11px;
+        line-height:1.4;
+      }
 
-  .hero-btns{
-    flex-direction:column;
-    width:100%;
-  }
+      .hero-h1{
+        font-size:3.5rem;
+        line-height:.9;
+      }
 
-  .hero-btns a{
-    width:100%;
-    text-align:center;
-  }
+      .hero-sub{
+        font-size:16px;
+      }
 
-  .hero-stats{
-    position:relative;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    margin-top:40px;
-  }
+      .hero-btns{
+        flex-direction:column;
+      }
 
-  .stat-item{
-    padding:20px;
-  }
+      .hero-btns a{
+        width:100%;
+        text-align:center;
+      }
 
-  .stat-num{
-    font-size:2rem;
-  }
+      .hero-stats{
+        position:relative;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        margin-top:50px;
+      }
 
-  .services-grid,
-  .projects-grid,
-  .about-grid,
-  .why-inner,
-  .quote-inner{
-    grid-template-columns:1fr !important;
-  }
+      .stat-item{
+        padding:20px;
+      }
 
-  .proj-card.large{
-    grid-column:span 1;
-  }
+      .stat-num{
+        font-size:2rem;
+      }
 
-  .about-img-wrap img,
-  .why-img img{
-    height:320px;
-  }
+      .about-grid,
+      .quote-inner,
+      .projects-grid,
+      .services-grid{
+        grid-template-columns:1fr;
+      }
 
-  nav{
-    padding:14px 5%;
-  }
+      .about-img-wrap img{
+        height:320px;
+      }
 
-  .footer-top,
-  .footer-bottom{
-    flex-direction:column;
-    text-align:center;
-  }
+      .about-list{
+        grid-template-columns:1fr;
+      }
 
-}
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .form-group.full{
+        grid-column:span 1;
+      }
+
+      .contact-strip{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .contact-strip h2{
+        font-size:40px;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      #quote::before{
+        font-size:20vw;
+      }
+
+    }
+
   </style>
 </head>
 
@@ -720,8 +704,6 @@ section{
   <div class="demo-banner">
     🚧 DEMO PREVIEW — WALKER BUILD CONSTRUCTION LTD
   </div>
-
-  <!-- NAV -->
 
   <nav>
 
@@ -739,8 +721,6 @@ section{
     </ul>
 
   </nav>
-
-  <!-- HERO -->
 
   <section id="home">
 
@@ -803,289 +783,6 @@ section{
     </div>
 
   </section>
-
-  <!-- ABOUT -->
-
-  <section id="about">
-
-    <div class="about-grid">
-
-      <div class="about-img-wrap">
-
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=900&q=80">
-
-        <div class="about-badge">
-          <div class="big">15+</div>
-          <div class="sm">Years of Excellence</div>
-        </div>
-
-      </div>
-
-      <div>
-
-        <p class="section-tag">About Us</p>
-
-        <h2 class="section-h2">
-          BUILDING MORE THAN STRUCTURES
-        </h2>
-
-        <p class="section-lead">
-          Walker Build Construction Ltd delivers premium residential and commercial construction services across New Zealand.
-        </p>
-
-        <ul class="about-list">
-          <li>Licensed Building Practitioner</li>
-          <li>Commercial Construction</li>
-          <li>Residential Projects</li>
-          <li>Renovations & Extensions</li>
-          <li>Project Management</li>
-          <li>NZ Code Compliant</li>
-        </ul>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- SERVICES -->
-
-  <section id="services">
-
-    <p class="section-tag">What We Do</p>
-
-    <h2 class="section-h2">
-      OUR SERVICES
-    </h2>
-
-    <div class="services-grid">
-
-      <div class="service-card">
-        <div class="service-num">01</div>
-        <div class="service-icon">🏗️</div>
-        <h3>New Builds</h3>
-        <p>Residential and commercial construction from start to finish.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-num">02</div>
-        <div class="service-icon">🔨</div>
-        <h3>Renovations</h3>
-        <p>Modern renovations and premium finishing solutions.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-num">03</div>
-        <div class="service-icon">📐</div>
-        <h3>Project Management</h3>
-        <p>Complete project planning and construction management.</p>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- PROJECTS -->
-
-  <section id="projects">
-
-    <p class="section-tag">Our Portfolio</p>
-
-    <h2 class="section-h2">
-      RECENT PROJECTS
-    </h2>
-
-    <div class="projects-grid">
-
-      <div class="proj-card">
-
-        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80">
-
-        <div class="proj-info">
-          <div class="proj-cat">Residential</div>
-          <div class="proj-title">Luxury Home Build</div>
-        </div>
-
-      </div>
-
-      <div class="proj-card">
-
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80">
-
-        <div class="proj-info">
-          <div class="proj-cat">Commercial</div>
-          <div class="proj-title">Office Construction</div>
-        </div>
-
-      </div>
-
-      <div class="proj-card">
-
-        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80">
-
-        <div class="proj-info">
-          <div class="proj-cat">Renovation</div>
-          <div class="proj-title">Kitchen Renovation</div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- QUOTE -->
-
-  <section id="quote">
-
-    <div class="quote-inner">
-
-      <div>
-
-        <p class="section-tag">
-          Free Consultation
-        </p>
-
-        <h2 class="section-h2">
-          GET A FREE QUOTE
-        </h2>
-
-        <p class="section-lead">
-          Tell us about your project and our team will contact you shortly.
-        </p>
-
-      </div>
-
-      <div>
-
-        <form action="https://formsubmit.co/YOURMAIL@gmail.com" method="POST">
-
-          <div class="form-grid">
-
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="John">
-            </div>
-
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Smith">
-            </div>
-
-            <div class="form-group full">
-              <label>Email</label>
-              <input type="email" placeholder="john@email.com">
-            </div>
-
-            <div class="form-group full">
-              <label>Project Details</label>
-              <textarea placeholder="Tell us about your project"></textarea>
-            </div>
-
-            <div class="form-group full">
-              <button class="btn-primary" style="width:100%; border:none;">
-                Send Enquiry
-              </button>
-            </div>
-
-          </div>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- CONTACT -->
-
-  <section id="contact" style="padding:0;">
-
-    <div class="contact-strip">
-
-      <div>
-
-        <h2>
-          READY TO START YOUR BUILD?
-        </h2>
-
-        <p>
-          Let's create something exceptional together.
-        </p>
-
-      </div>
-
-      <a href="#quote" class="btn-dark">
-        Book Consultation
-      </a>
-
-    </div>
-
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    <div class="footer-top">
-
-      <div>
-
-        <div class="footer-logo">
-          <img src="logo.png" alt="Walker Build Logo">
-        </div>
-
-        <p style="color:var(--grey);">
-          Quality construction across New Zealand.
-        </p>
-
-      </div>
-
-      <div class="footer-links">
-
-        <h4>Navigation</h4>
-
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#projects">Projects</a></li>
-        </ul>
-
-      </div>
-
-      <div class="footer-links">
-
-        <h4>Services</h4>
-
-        <ul>
-          <li><a href="#">New Builds</a></li>
-          <li><a href="#">Renovations</a></li>
-          <li><a href="#">Commercial</a></li>
-        </ul>
-
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-
-      <div>
-        <p>© 2025 Walker Build Construction Ltd. All rights reserved.</p>
-
-        <p style="margin-top:10px; color:#666; font-size:12px;">
-          Designed & Developed by CreativeXol
-        </p>
-      </div>
-
-      <p style="color:var(--gold);">
-        Licensed Building Practitioner · NZ Registered
-      </p>
-
-    </div>
-
-  </footer>
 
 </body>
 </html>
