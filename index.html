@@ -140,6 +140,7 @@
       align-items:center;
       padding:120px 5%;
       overflow:hidden;
+      padding-bottom:220px;
     }
 
     .hero-bg{
@@ -657,7 +658,85 @@
       }
 
     }
+@media (max-width:768px){
 
+  body{
+    overflow-x:hidden;
+  }
+
+  #home{
+    min-height:auto;
+    padding-top:140px;
+    padding-bottom:40px;
+  }
+
+  .hero-content{
+    max-width:100%;
+  }
+
+  .hero-h1{
+    font-size:3.2rem !important;
+    line-height:0.92;
+  }
+
+  .hero-sub{
+    font-size:0.95rem;
+    max-width:100%;
+  }
+
+  .hero-btns{
+    flex-direction:column;
+    width:100%;
+  }
+
+  .hero-btns a{
+    width:100%;
+    text-align:center;
+  }
+
+  .hero-stats{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    margin-top:40px;
+  }
+
+  .stat-item{
+    padding:20px;
+  }
+
+  .stat-num{
+    font-size:2rem;
+  }
+
+  .services-grid,
+  .projects-grid,
+  .about-grid,
+  .why-inner,
+  .quote-inner{
+    grid-template-columns:1fr !important;
+  }
+
+  .proj-card.large{
+    grid-column:span 1;
+  }
+
+  .about-img-wrap img,
+  .why-img img{
+    height:320px;
+  }
+
+  nav{
+    padding:14px 5%;
+  }
+
+  .footer-top,
+  .footer-bottom{
+    flex-direction:column;
+    text-align:center;
+  }
+
+}
   </style>
 </head>
 
