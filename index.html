@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walker Build Construction Ltd — New Zealand</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:   #0a0b0d;
+      --dark:    #111318;
+      --dark2:   #1a1d24;
+      --dark3:   #242830;
+      --gold:    #c9943a;
+      --gold2:   #e8b45c;
+      --white:   #f5f3ef;
+      --grey:    #8a8f9a;
+      --light:   #d6d2cb;
+      --font-h:  'Bebas Neue', sans-serif;
+      --font-b:  'DM Sans', sans-serif;
+      --ease:    cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-b);
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===================== DEMO BANNER ===================== */
+    .demo-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: var(--gold);
+      color: var(--black);
+      text-align: center;
+      font-family: var(--font-b);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+    }
+    .demo-banner span { opacity: 0.7; font-weight: 400; }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 34px; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(10,11,13,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,148,58,0.12);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--font-h);
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black) !important;
+      font-weight: 700 !important;
+      padding: 9px 20px;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold2) !important; transform: translateY(-1px); }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); transition: 0.3s; }
+
+    /* ===================== HERO ===================== */
+    #home {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 90px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: bgZoom 8s var(--ease) forwards;
+    }
+    @keyframes bgZoom { to { transform: scale(1); } }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(10,11,13,0.92) 50%, rgba(10,11,13,0.55) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 5%;
+      max-width: 820px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s var(--ease) forwards;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-h1 {
+      font-family: var(--font-h);
+      font-size: clamp(3.4rem, 9vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s var(--ease) forwards;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--light);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.7s var(--ease) forwards;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s var(--ease) forwards;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-b);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 15px 34px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-b);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 15px 34px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* stats bar */
+    .hero-stats {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      display: flex;
+      background: rgba(26,29,36,0.92);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(201,148,58,0.2);
+      opacity: 0;
+      animation: fadeUp 1s 1.2s var(--ease) forwards;
+    }
+    .stat-item {
+      flex: 1;
+      padding: 22px 5%;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-h);
+      font-size: 2.4rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===================== SECTION BASE ===================== */
+    section { padding: 100px 5%; }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--gold);
+    }
+    .section-h2 {
+      font-family: var(--font-h);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.2rem;
+    }
+    .section-lead {
+      font-size: 1rem;
+      color: var(--light);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===================== ABOUT ===================== */
+    #about { background: var(--dark); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: brightness(0.85);
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      background: var(--gold);
+      color: var(--black);
+      padding: 24px 28px;
+      text-align: center;
+    }
+    .about-badge .big {
+      font-family: var(--font-h);
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+    .about-badge .sm {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .about-text { padding-bottom: 1rem; }
+    .about-text p { color: var(--light); margin-bottom: 1.2rem; }
+    .about-list {
+      list-style: none;
+      margin-top: 1.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--light);
+    }
+    .about-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===================== SERVICES ===================== */
+    #services { background: var(--black); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      margin-top: 3.5rem;
+    }
+    .service-card {
+      background: var(--dark2);
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { background: var(--dark3); }
+    .service-icon {
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .service-card h3 {
+      font-family: var(--font-h);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.8rem;
+    }
+    .service-card p {
+      color: var(--grey);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .service-num {
+      position: absolute;
+      top: 20px; right: 28px;
+      font-family: var(--font-h);
+      font-size: 4rem;
+      color: rgba(201,148,58,0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* ===================== WHY US ===================== */
+    #why { background: var(--dark); overflow: hidden; }
+    .why-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .why-img {
+      position: relative;
+    }
+    .why-img img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+    .why-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid rgba(201,148,58,0.3);
+      transform: translate(14px, 14px);
+      pointer-events: none;
+    }
+    .why-features { display: flex; flex-direction: column; gap: 2rem; margin-top: 2.5rem; }
+    .why-item { display: flex; gap: 1.4rem; }
+    .why-icon {
+      width: 48px; height: 48px;
+      background: rgba(201,148,58,0.12);
+      border: 1px solid rgba(201,148,58,0.3);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .why-item h4 {
+      font-family: var(--font-b);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .why-item p { color: var(--grey); font-size: 0.87rem; }
+
+    /* ===================== PROJECTS ===================== */
+    #projects { background: var(--black); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.5px;
+      margin-top: 3rem;
+    }
+    .proj-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .proj-card.large { grid-column: span 2; }
+    .proj-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+      filter: brightness(0.65);
+    }
+    .proj-card.large img { height: 320px; }
+    .proj-card:hover img { transform: scale(1.05); filter: brightness(0.45); }
+    .proj-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px 24px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      transform: translateY(8px);
+      transition: transform 0.4s;
+    }
+    .proj-card:hover .proj-info { transform: translateY(0); }
+    .proj-cat {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .proj-title { font-family: var(--font-h); font-size: 1.3rem; letter-spacing: 0.03em; }
+
+    /* ===================== QUOTE FORM ===================== */
+    #quote {
+      background: linear-gradient(135deg, var(--dark2) 0%, var(--dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #quote::before {
+      content: 'GET A QUOTE';
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-h);
+      font-size: 14vw;
+      color: rgba(201,148,58,0.04);
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .quote-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: start;
+      position: relative;
+    }
+    .quote-left h2 { margin-bottom: 1rem; }
+    .quote-left p { color: var(--light); margin-bottom: 2rem; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.2rem;
+    }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: rgba(201,148,58,0.12);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .contact-item span { color: var(--light); font-size: 0.9rem; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--font-b);
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group select option { background: var(--dark2); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      margin-top: 1.2rem;
+      grid-column: span 2;
+    }
+
+    /* ===================== CONTACT ===================== */
+    #contact { background: var(--black); padding-bottom: 60px; }
+    .contact-strip {
+      background: var(--gold);
+      color: var(--black);
+      padding: 52px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
+    .contact-strip h2 {
+      font-family: var(--font-h);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+    }
+    .contact-strip p { font-size: 0.95rem; max-width: 420px; opacity: 0.75; }
+    .btn-dark {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-b);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 15px 34px;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-dark:hover { background: var(--dark2); }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 5% 28px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .footer-brand .nav-logo { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .footer-brand p { color: var(--grey); font-size: 0.85rem; max-width: 260px; }
+    .footer-links h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .footer-links li a { color: var(--grey); font-size: 0.87rem; transition: color 0.2s; }
+    .footer-links li a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p { color: var(--grey); font-size: 0.78rem; }
+
+    /* ===================== MOBILE ===================== */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .why-inner, .quote-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-badge { right: 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .proj-card.large { grid-column: span 1; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full, .form-submit { grid-column: span 1; }
+      .hero-stats { position: static; margin-top: 3rem; flex-wrap: wrap; }
+      .stat-item { flex: 1 1 45%; }
+      section { padding: 70px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">
+    🚧 Demo Preview — This is a concept website for Walker Build Construction Ltd &nbsp;<span>| Not live yet</span>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">WALKER <span>BUILD</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#quote" class="nav-cta">Get a Quote</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">New Zealand's Trusted Builder</p>
+      <h1 class="hero-h1">WE BUILD<br><em>YOUR</em><br>VISION.</h1>
+      <p class="hero-sub">Quality construction, renovation, and project management across New Zealand. Built on trust. Finished to perfection.</p>
+      <div class="hero-btns">
+        <a href="#quote" class="btn-primary">Get a Free Quote</a>
+        <a href="#projects" class="btn-outline">View Our Work</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">320+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Licensed & Insured</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=900&q=80" alt="Walker Build Team at work" />
+        <div class="about-badge">
+          <div class="big">15+</div>
+          <div class="sm">Years of<br>Excellence</div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p class="section-tag">About Us</p>
+        <h2 class="section-h2">BUILDING MORE THAN STRUCTURES</h2>
+        <p>Walker Build Construction Ltd is a New Zealand-owned and operated construction company with over 15 years of experience delivering quality builds across residential, commercial, and renovation projects.</p>
+        <p>We're not just builders — we're partners in your project. From the first consultation to the final handover, our team ensures every detail meets the highest standard of craftsmanship and compliance.</p>
+        <ul class="about-list">
+          <li>Licensed Building Practitioner</li>
+          <li>Residential Construction</li>
+          <li>Commercial Projects</li>
+          <li>Renovations & Extensions</li>
+          <li>Project Management</li>
+          <li>NZ Building Code Compliant</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div style="text-align:center; margin-bottom: 0.5rem;">
+      <p class="section-tag" style="justify-content:center;">What We Do</p>
+      <h2 class="section-h2">OUR SERVICES</h2>
+      <p class="section-lead" style="margin: 0 auto; text-align:center;">From concept to completion — we handle every phase of your project with precision and care.</p>
+    </div>
+    <div class="services-grid" style="margin-top:3.5rem;">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon">🏗️</div>
+        <h3>New Builds</h3>
+        <p>Custom homes and commercial buildings built from the ground up. We manage the entire process from consent to completion.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">02</div>
+        <div class="service-icon">🔨</div>
+        <h3>Renovations</h3>
+        <p>Transform your existing space. Kitchens, bathrooms, extensions — we breathe new life into every room we touch.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <div class="service-icon">📐</div>
+        <h3>Project Management</h3>
+        <p>Full end-to-end project management. We coordinate contractors, manage timelines, and keep your build on budget.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <div class="service-icon">🏢</div>
+        <h3>Commercial Construction</h3>
+        <p>Offices, retail spaces, and industrial buildings. Professional delivery that meets commercial standards and deadlines.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">05</div>
+        <div class="service-icon">🪟</div>
+        <h3>Alterations & Extensions</h3>
+        <p>Adding a deck, extending a room, or reconfiguring your floor plan — we make your space work harder for you.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">06</div>
+        <div class="service-icon">📋</div>
+        <h3>Consents & Compliance</h3>
+        <p>We handle building consents, inspections, and ensure every project meets NZ building code requirements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="why-inner">
+      <div class="why-img reveal">
+        <img src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=900&q=80" alt="Quality construction work" />
+      </div>
+      <div class="reveal">
+        <p class="section-tag">Why Walker Build</p>
+        <h2 class="section-h2">QUALITY YOU CAN TRUST</h2>
+        <p class="section-lead">We've built our reputation one project at a time — always on time, on budget, and to the highest standard.</p>
+        <div class="why-features">
+          <div class="why-item">
+            <div class="why-icon">🏆</div>
+            <div>
+              <h4>Licensed & Certified</h4>
+              <p>Fully licensed building practitioners with all required NZ certifications and insurance.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">💬</div>
+            <div>
+              <h4>Transparent Communication</h4>
+              <p>You're always in the loop. Regular updates, clear timelines, and no hidden surprises.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">⏱️</div>
+            <div>
+              <h4>On Time, On Budget</h4>
+              <p>We respect your time and money. We set realistic expectations and deliver on them.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🔧</div>
+            <div>
+              <h4>Quality Workmanship</h4>
+              <p>Every build is backed by our quality guarantee. We take pride in the details others miss.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-tag">Our Portfolio</p>
+    <h2 class="section-h2">RECENT PROJECTS</h2>
+    <p class="section-lead">A selection of projects we're proud of — from family homes to commercial spaces.</p>
+    <div class="projects-grid reveal">
+      <div class="proj-card large">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80" alt="Residential new build" />
+        <div class="proj-info">
+          <div class="proj-cat">Residential</div>
+          <div class="proj-title">Auckland New Build — 4 Bedroom Home</div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Kitchen renovation" />
+        <div class="proj-info">
+          <div class="proj-cat">Renovation</div>
+          <div class="proj-title">Wellington Kitchen Overhaul</div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80" alt="Commercial office" />
+        <div class="proj-info">
+          <div class="proj-cat">Commercial</div>
+          <div class="proj-title">Hamilton Office Fitout</div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=700&q=80" alt="Home extension" />
+        <div class="proj-info">
+          <div class="proj-cat">Extension</div>
+          <div class="proj-title">Christchurch Rear Extension</div>
+        </div>
+      </div>
+      <div class="proj-card large">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" alt="Commercial build" />
+        <div class="proj-info">
+          <div class="proj-cat">Commercial</div>
+          <div class="proj-title">Tauranga Retail Complex</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GET A QUOTE -->
+  <section id="quote">
+    <div class="quote-inner">
+      <div class="reveal">
+        <p class="section-tag">Free Consultation</p>
+        <h2 class="section-h2">GET A FREE QUOTE</h2>
+        <p>Tell us about your project and we'll get back to you within 24 hours with a no-obligation quote.</p>
+        <div style="margin-top: 2rem;">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <span>New Zealand — Nationwide Service</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <span>+64 XXX XXXX</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <span>info@walkerbuild.co.nz</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="john@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="+64 21 XXX XXXX" />
+          </div>
+          <div class="form-group full">
+            <label>Service Required</label>
+            <select>
+              <option value="">Select a service...</option>
+              <option>New Residential Build</option>
+              <option>Commercial Construction</option>
+              <option>Renovation / Alteration</option>
+              <option>Extension</option>
+              <option>Project Management</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Tell Us About Your Project</label>
+            <textarea placeholder="Describe your project, budget range, and timeline..."></textarea>
+          </div>
+          <div class="form-submit full">
+            <button class="btn-primary" style="width:100%; font-size: 0.85rem;">Send My Enquiry →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT STRIP -->
+  <section id="contact" style="padding:0 0 80px;">
+    <div class="contact-strip reveal">
+      <div>
+        <h2>READY TO START YOUR BUILD?</h2>
+        <p>Let's talk. No obligation, no pressure — just an honest conversation about what you need.</p>
+      </div>
+      <a href="#quote" class="btn-dark">Book a Consultation</a>
+    </div>
+    <div style="padding: 0 5%;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d98949.98234543!2d174.6363!3d-36.8485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d0d47fb5a9ce6fb%3A0x500ef6143a29917!2sAuckland%2C%20New%20Zealand!5e0!3m2!1sen!2s!4v1690000000000"
+        width="100%" height="300" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(0.9); border-radius:2px;" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">WALKER <span>BUILD</span></div>
+        <p>Quality construction across New Zealand. Licensed, trusted, and committed to excellence.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#quote">Get a Quote</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">New Builds</a></li>
+          <li><a href="#services">Renovations</a></li>
+          <li><a href="#services">Commercial</a></li>
+          <li><a href="#services">Extensions</a></li>
+          <li><a href="#services">Project Management</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+64">+64 XXX XXXX</a></li>
+          <li><a href="mailto:info@walkerbuild.co.nz">info@walkerbuild.co.nz</a></li>
+          <li><a href="#">New Zealand</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Walker Build Construction Ltd. All rights reserved.</p>
+      <p style="color: var(--gold); font-size: 0.72rem;">Licensed Building Practitioner · NZ Registered</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Sticky nav background
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 80) {
+        nav.style.background = 'rgba(10,11,13,0.97)';
+      } else {
+        nav.style.background = 'rgba(10,11,13,0.85)';
+      }
+    });
+
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
